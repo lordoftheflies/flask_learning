@@ -10,26 +10,30 @@ def root():
     print("root called")
     return "hello from root"
 
-@app.route("/string/<input>")
-def string_getter(input):
+@app.route("/tool/<int:input>")
+def that_num(input):
     """
-        this will accept anything as string
+        this will give an int and return num
     """
-    return "hello, i got " + input
+    return str(input )
 
-@app.route("/num/<int:input>")
-def number_getter(input):
+@app.route("/tool/<int:input>/plus/")
+def num_plus_one(input):
     """
-        this will accept only integer
+        this will give an int and return num + 1
+        it will accept both ../plus and ../plus/
     """
-    return "you enterred :" + str(input) + " as num"
+    return str(input + 1)
 
-@app.route("/num/<float:input>")
-def float_getter(input):
+@app.route("/tool/<int:input>/minus")
+def num_minus_one(input):
     """
-        this will accept float
+        this will give an int and return num - 1
+        it wont accept ../minus/
     """
-    return "you enterred :" + str(input) + " as float"
+    return str(input - 1)
+
+
 
 
 if (__name__ == '__main__'):
