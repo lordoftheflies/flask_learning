@@ -2,6 +2,7 @@ from flask import Flask
 
 app = Flask(__name__)
 
+@app.route("/")
 def root():
     """
     this method will be called in case of calling localhost
@@ -9,25 +10,27 @@ def root():
     print("root called")
     return "hello from root"
 
-def second():
+@app.route("/string/<input>")
+def string_getter(input):
     """
-    this method will be called in case of calling localhost/do
+        this will accept anything as string
     """
-    print("second method called")
-    return "hello from second method"
+    return "hello, i got " + input
 
-app.add_url_rule("/","root",root)
-app.add_url_rule("/do","second",second)
-"""
-    now we changed rules from annotation to here
-    we will call add_url_rule method
-"""
+@app.route("/num/<int:input>")
+def number_getter(input):
+    """
+        this will accept only integer
+    """
+    return "you enterred :" + str(input) + " as num"
+
+@app.route("/num/<float:input>")
+def float_getter(input):
+    """
+        this will accept float
+    """
+    return "you enterred :" + str(input) + " as float"
 
 
 if (__name__ == '__main__'):
     app.run("0.0.0.0",80,True)
-
-"""
-    this will respose calling 127.0.0.1:80 or any other ip
-    if you remove "0.0.0.0"and 80 port it will set ony to 127.0.0.1 and 5000 port
-"""
