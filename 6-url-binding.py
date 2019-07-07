@@ -9,31 +9,19 @@ def root():
     print("root called")
     return "hello from root"
 
-@app.route("/tool/<int:input>")
-def that_num(input):
-    """
-        this will give an int and return num
-    """
-    return str(input )
+@app.route("/admin/")
+def hello_admin():
+    return "hello admin"
 
-@app.route("/tool/<int:input>/plus/")
-def num_plus_one(input):
-    """
-        this will give an int and return num + 1
-        it will accept both ../plus and ../plus/
-    """
-    return str(input + 1)
+@app.route("/guest/<guest>/")
+def hello_guest(guest):
+    return "hello " + guest + " as guest"
 
-@app.route("/tool/<int:input>/minus")
-def num_minus_one(input):
-    """
-        this will give an int and return num - 1
-        it wont accept ../minus/
-    """
-    return str(input - 1)
-
-
-
+@app.route("/user/<name>/")
+def hello_user(name):
+    if name == 'admin':
+        return redirect(url_for('hello_admin'))
+    return redirect(url_for('hello_guest', guest = name))
 
 if (__name__ == '__main__'):
     app.run("0.0.0.0",80,True)
