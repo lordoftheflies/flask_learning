@@ -11,7 +11,7 @@ def get_password(username):
 
 @auth.error_handler
 def unauthrized():
-    return make_response(jsonify({'error':"Unauthorized access"}),401)
+    return make_response(jsonify({'error':"Unauthorized access"}),403)
 
 @app.route('/api/all', methods=['GET'])
 @auth.login_required
